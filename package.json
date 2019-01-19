@@ -1,0 +1,22 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "thinkful challenge blog api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dinaverg/blog-api.git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "Darryl Williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dinaverg/blog-api/issues"
+  },
+  "homepage": "https://github.com/Dinaverg/blog-api#readme"
+}
