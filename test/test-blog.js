@@ -34,7 +34,7 @@ describe("Blog Posts", function() {
 
     it("should create a new blog post on POST", function() {
         let newItem = {
-            "Title": "bizz",
+            "title": "bizz",
             "content": "bizz rounds out the trio of...",
             "author": "DMW"
         }
@@ -44,13 +44,14 @@ describe("Blog Posts", function() {
             expect(res).to.be.json
             expect(res.body).to.be.an("object")
             expect(res.body).to.include.keys("title", "content", "author")
+            console.log(res.body)
             expect(res.body.id).to.not.equal(null)
         })
     })
 
     it("should update a post on PUT", function() {
         let updateData = {
-            Title: "bang",
+            title: "bang",
             content: "in fact, with bang, the total number...",
             author: "DMW"
         }
@@ -60,7 +61,7 @@ describe("Blog Posts", function() {
             return chai.request(app).put(`/blog-posts/${updateData.id}`).send(updateData)
         })
         .then(function(res) {
-            expect(res).to.have.status(200)
+            expect(res).to.have.status(203)
             expect(res).to.be.json
             expect(res.body).to.be.an("object")
             expect(res.body).to.deep.equal(updateData)
