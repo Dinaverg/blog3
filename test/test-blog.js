@@ -32,5 +32,49 @@ describe("Blog Posts", function() {
         })
     })
 
-    //it("she")
+    it("should create a new blog post on POST", function() {
+        let newItem = {
+            "Title": "bizz",
+            "content": "bizz rounds out the trio of...",
+            "author": "DMW"
+        }
+        return chai.request(app).post("/blog-posts").send(newItem)
+        .then(function(res) {
+            expect(res).to.have.status(201)
+            expect(res).to.be.json
+            expect(res.body).to.be.an("object")
+            expect(res.body).to.include.keys("title", "content", "author")
+            expect(res.body.id).to.not.equal(null)
+        })
+    })
+
+    it("should update a post on PUT", function() {
+        let updateData = {
+            Title: "bang",
+            content: "in fact, with bang, the total number...",
+            author: "DMW"
+        }
+        return (chai.request(app).get("/blog-posts")
+        .then(function(res) {
+            updateData.id = res.body[0].id
+            return chai.request(app).put(`/blog-posts/${updateData.id}`).send(updateData)
+        })
+        .then(function(res) {
+            expect(res).to.have.status(200)
+            expect(res).to.be.json
+            expect(res.body).to.be.an("object")
+            expect(res.body).to.deep.equal(updateData)
+        })
+        )
+    })
+
+    it("should delete a post on DELETE", function() {
+        return (chai.request(app).get("/blog-posts")
+        .then(function(res) {
+            return chai.request(app).delete(`/blog-posts/${res.body[0].id}`)
+        })
+        .then(function(res) {
+            expect(res).to.have.status(204)
+        }))
+    })
 })
