@@ -5,20 +5,23 @@ let jsonParser = bodyParser.json()
 let app = express()
 let blogRouter = require('./blogRouter')
 let mongoose = require("mongoose");
+let {DATABASE_URL} = require("./config")
 
 mongoose.Promise = global.Promise;
+mongoose.connect(DATABASE_URL)
 
 app.use(morgan('common'))
 app.use('/blogposts', blogRouter)
-
-let {DATABASE_URL} = require("./config")
-let {BlogPost} = require("./models")
 
 /* app.listen(process.env.PORT || 8080, () => {
     console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
 }); */
 
 app.get('/', (req, res) => res.send('yo'))
+
+/*app.use("*", function(req, res) {
+  res.status(404).json({ message: "Not Found" });
+});*/
 
 let server
 
