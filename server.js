@@ -4,13 +4,21 @@ let bodyParser = require('body-parser')
 let jsonParser = bodyParser.json()
 let app = express()
 let blogRouter = require('./blogRouter')
+let mongoose = require("mongoose");
+
+mongoose.Promise = global.Promise;
 
 app.use(morgan('common'))
-app.use('/blog-posts', blogRouter)
+app.use('/blogposts', blogRouter)
+
+let {DATABASE_URL} = require("./config")
+let {BlogPost} = require("./models")
 
 /* app.listen(process.env.PORT || 8080, () => {
     console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
 }); */
+
+app.get('/', (req, res) => res.send('yo'))
 
 let server
 
