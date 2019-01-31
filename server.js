@@ -19,9 +19,9 @@ app.use('/blog', blogRouter)
 
 app.get('/', (req, res) => res.send('yo'))
 
-/*app.use("*", function(req, res) {
-  res.status(404).json({ message: "Not Found" });
-});*/
+app.use("*", function(req, res) {
+  res.status(404).json({message: "Not Found"});
+});
 
 let server
 
