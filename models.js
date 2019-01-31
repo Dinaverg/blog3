@@ -33,6 +33,7 @@ blogPostSchema.pre('find', function(next) {
 });
 
 blogPostSchema.virtual("authorString").get(function() {
+    console.log(this.author)
   return `${this.author.firstName} ${this.author.lastName}`.trim()
 })
 

@@ -19,9 +19,12 @@ router.get("/posts", (req, res) => {
         }
     });
     BlogPost.find(filters)
-    .then(BlogPost => res.json(
-        BlogPost.map(blogPost => blogPost.serialize())
-    ))
+    .then(blogPosts => {
+        res.json(blogPosts.forEach(blogPost => {
+            console.log(blogPost)
+            blogPost.serialize()
+        })
+    )})
     .catch(err => {
         console.error(err)
         res.status(500).json({message: "Internal server error"})
@@ -153,7 +156,7 @@ router.post('/authors', (req, res) => {
     });
 })
 
-/* app.put('/authors/:id', (req, res) => {
+app.put('/authors/:id', (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
       res.status(400).json({
         error: 'Request path id and request body id values must match'
@@ -207,7 +210,7 @@ router.post('/authors', (req, res) => {
         console.error(err);
         res.status(500).json({ error: 'something went terribly wrong' });
       });
-  }); */
+  });
   
 
 module.exports = router
