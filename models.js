@@ -17,6 +17,7 @@ let commentSchema = mongoose.Schema({
 
 let blogPostSchema = mongoose.Schema({
     title: 'string',
+    date: 'date',
     content: 'string',
     author: {type: mongoose.Schema.Types.ObjectId, ref: 'Author'},
     comments: [commentSchema]
@@ -39,10 +40,10 @@ blogPostSchema.virtual("authorString").get(function() {
 
 blogPostSchema.methods.serialize = function() {
   return {
-    id: this._id,  
     title: this.title,
     content: this.content,
     author: this.authorString,
+    publishDate: this.publishDate,
     comments: this.comments
   }
 }

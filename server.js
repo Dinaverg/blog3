@@ -8,7 +8,7 @@ let mongoose = require("mongoose");
 let {DATABASE_URL} = require("./config")
 
 mongoose.Promise = global.Promise;
-mongoose.connect(DATABASE_URL, {useNewUrlParser: true})
+
 
 app.use(morgan('common'))
 app.use('/blog', blogRouter)
@@ -26,8 +26,12 @@ app.use("*", function(req, res) {
 let server
 
 function runServer() {
-    const port = process.env.PORT || 8080;
+    let port = process.env.PORT || 8080;
     return new Promise((resolve, reject) => {
+      mongoose.connect(DATABASE_URL, {useNewUrlParser: true}, err => {
+        if (err) { 
+          return reject(err); 
+      }})
       server = app
         .listen(port, () => {
           console.log(`Your app is listening on port ${port}`);
